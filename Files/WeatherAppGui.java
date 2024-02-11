@@ -21,22 +21,18 @@ public class WeatherAppGui extends JFrame{
         setLayout(null);
         setResizable(false);
         
-        addTextField();
-        addSearchButton();
+        addIcons();
     }
-
-    public void addTextField(){
+    public void addIcons(){
         JTextField searchText = new JTextField();
         searchText.setBounds(15, 15, 351, 45);
         searchText.setFont(new Font("Times New Roman", Font.PLAIN, 34));
         add(searchText);
         
-    }
-
-    public void addSearchButton(){
-        JButton searchButton = new JButton(displayIcon("C:\\Users\\fayez\\Desktop\\Testing Space GitHub\\WeatherApp\\WeatherApp\\Pictures\\Search.png"));
-        searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        searchButton.setBounds(375, 13, 45, 45);
+        JButton searchIcon = new JButton(displayIcon("Pictures\\Search.png"));
+        searchIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        searchIcon.setBounds(375, 13, 45, 47);
+        add(searchIcon);
     }
 
     private ImageIcon displayIcon(String path){
@@ -45,8 +41,9 @@ public class WeatherAppGui extends JFrame{
             return new ImageIcon(icon);
         }catch (IOException e){
             e.printStackTrace();
-            System.out.println("Can't Load Icon");
-            return null;
+            
         }
+        System.out.println("Can't Load Icon");
+        return null;
     }
 }
