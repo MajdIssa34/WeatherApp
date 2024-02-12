@@ -1,5 +1,4 @@
-import java.awt.Cursor;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +10,15 @@ public class WeatherAppGui extends JFrame{
 
     public WeatherAppGui(){
         super("Majd's Weather App");
+        Image img = Toolkit.getDefaultToolkit().getImage("Pictures\\Bakcground.png");
+        this.setContentPane(new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+               super.paintComponent(g);
+               g.drawImage(img, -10, -10, null);
+            }
+        });
+        pack();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -47,6 +55,8 @@ public class WeatherAppGui extends JFrame{
         JButton searchIcon = new JButton(displayIcon("Pictures\\search.png"));
         searchIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         searchIcon.setBounds(425, 15, 45, 45);
+        searchIcon.setBorderPainted(false); 
+        searchIcon.setContentAreaFilled(false);
         add(searchIcon);
     }
 
