@@ -23,16 +23,80 @@ public class WeatherAppGui extends JFrame{
         
         addIcons();
     }
+
     public void addIcons(){
+        addSearchText();
+        addSearchIcon();
+        addWeatherIcon();
+        addDegreeCelcuis();
+        addWeatherConditions();
+        addHumidityIcon();
+        addHumidityText();
+        addWindspeedIcon();
+        addWindspeedText();
+    }
+
+    public void addSearchText(){
         JTextField searchText = new JTextField();
-        searchText.setBounds(15, 15, 351, 45);
+        searchText.setBounds(15, 15, 400, 45);
         searchText.setFont(new Font("Times New Roman", Font.PLAIN, 34));
         add(searchText);
+    }
         
-        JButton searchIcon = new JButton(displayIcon("Pictures\\Search.png"));
+    public void addSearchIcon(){    
+        JButton searchIcon = new JButton(displayIcon("Pictures\\search.png"));
         searchIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        searchIcon.setBounds(375, 13, 45, 47);
+        searchIcon.setBounds(425, 15, 45, 45);
         add(searchIcon);
+    }
+
+    public void addWeatherIcon(){
+        JLabel weatherIcon = new JLabel(displayIcon("Pictures\\cloudy.png"));
+        weatherIcon.setBounds(0, 100, 500, 150);
+        weatherIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        add(weatherIcon);
+    }
+
+    public void addDegreeCelcuis(){
+        JLabel degreeCelcuis = new JLabel("10°C");
+        degreeCelcuis.setFont(new Font("Times New Roman", Font.PLAIN, 34));
+        degreeCelcuis.setBounds(0,300,450,36);
+        degreeCelcuis.setHorizontalAlignment(SwingConstants.CENTER);
+        add(degreeCelcuis);
+    }
+
+    public void addWeatherConditions(){
+        JLabel weatherConditions = new JLabel("Cloudy");
+        weatherConditions.setFont(new Font("Times New Roman", Font.BOLD, 34));
+        weatherConditions.setBounds(0,350,450,36);
+        weatherConditions.setHorizontalAlignment(SwingConstants.CENTER);
+        add(weatherConditions);
+    }
+
+    public void addHumidityIcon(){
+        JLabel humidityIcon = new JLabel(displayIcon("Pictures\\humidity.png"));
+        humidityIcon.setBounds(15, 500, 100, 85);
+        add(humidityIcon);
+    }
+
+    public void addHumidityText(){
+        JLabel humidityText = new JLabel("Humidity: 100%");
+        humidityText.setBounds(15, 550, 125, 85);
+        humidityText.setFont(new Font("TImes New Roman", Font.BOLD, 14));
+        add(humidityText);
+    }
+
+    public void addWindspeedIcon(){
+        JLabel windspeedIcon = new JLabel(displayIcon("Pictures\\windspeed.png"));
+        windspeedIcon.setBounds(375, 500, 75, 75);
+        add(windspeedIcon);
+    }
+
+    public void addWindspeedText(){
+        JLabel windspeedText = new JLabel("Windspeed: 100km/h");
+        windspeedText.setBounds(350, 550, 150, 85);
+        windspeedText.setFont(new Font("TImes New Roman", Font.BOLD, 14));
+        add(windspeedText);
     }
 
     private ImageIcon displayIcon(String path){
