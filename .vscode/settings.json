@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\fayez\\Desktop\\Testing Space GitHub\\WeatherApp\\json-simple-1.1.1.jar"
+    ]
+}
