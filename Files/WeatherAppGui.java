@@ -13,11 +13,22 @@ import org.json.simple.JSONObject;
 public class WeatherAppGui extends JFrame{
 
     private JSONObject weatherData;
-    //private TimeZoneFinder timeZone = new TimeZoneFinder();
+    JTextField searchText;
+    JLabel weatherIcon;
+    JLabel cityLocation;
+    JLabel degreeCelcuis;
+    JLabel weatherConditions;
+    JLabel humidityText;
+    JLabel windspeedText;
+    JLabel timeAtLocation;
+    JButton searchButton;
+    JLabel windspeedIcon;
+    JLabel humidityIcon;
+
 
     public WeatherAppGui(){
         super("Majd's Weather App");
-        Image img = Toolkit.getDefaultToolkit().getImage("Pictures\\Bakcground.png");
+        Image img = Toolkit.getDefaultToolkit().getImage("Pictures\\NightBackground.png");
         this.setContentPane(new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
@@ -29,83 +40,86 @@ public class WeatherAppGui extends JFrame{
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setSize(500, 750);
+        setSize(500, 500);
 
         setLocationRelativeTo(null);
 
         setLayout(null);
         setResizable(false);
         
-        addIcons();
-    }
-
-    public void addIcons(){
-        
-        addHumidityIcon();
-        addWindspeedIcon();
         addGUIComponents();
-
-        JTextField searchText = new JTextField();
-        searchText.setBounds(15, 15, 400, 45);
-        searchText.setFont(new Font("Times New Roman", Font.PLAIN, 34));
-        add(searchText);
-
-        
     }
 
-    public void addGUIComponents(){
-        JTextField searchText = new JTextField();
+    public void addGUIComponents(){    
+        addSearchText();
+        addWeatherIcon();
+        addCityLocation();
+        addDegreeCelcuis();
+        //addWeatherCondition();
+        addHumidityIcon();
+        addHumidityText();
+        addWindspeedText();
+        addWindspeedIcon();
+        addTimeAtLocation();
+        addSearchButton();
+    }
+
+    public void addSearchText(){
+        searchText = new JTextField();
         searchText.setBounds(15, 15, 400, 45);
-        searchText.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 34));
+        searchText.setFont(new Font("Fira Code", Font.PLAIN, 34));
         add(searchText);
-      
-        JLabel weatherIcon = new JLabel(displayIcon("Pictures\\Cloudy.png"));
-        weatherIcon.setBounds(0, 55, 200, 200);
+    }
+
+    public void addWeatherIcon(){  
+        weatherIcon = new JLabel(displayIcon("Pictures\\Cloudy.png"));
+        weatherIcon.setBounds(0, 250, 200, 200);
         weatherIcon.setHorizontalAlignment(SwingConstants.CENTER);
         add(weatherIcon);
+    }
 
-        JLabel cityLocation = new JLabel("Please enter a city.");
-        cityLocation.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 34));
-        cityLocation.setBounds(0,250,500,36);
+    public void addCityLocation(){
+        cityLocation = new JLabel("Please enter a city.");
+        cityLocation.setFont(new Font("Fira Code", Font.PLAIN, 36));
+        cityLocation.setBounds(0,125,500,36);
+        cityLocation.setHorizontalAlignment(JLabel.CENTER);
         cityLocation.setForeground(Color.BLACK);
-        cityLocation.setHorizontalAlignment(SwingConstants.CENTER);
+        //cityLocation.setHorizontalAlignment(SwingConstants.CENTER);
         add(cityLocation);
+    }
 
-        JLabel degreeCelcuis = new JLabel("10 °C");
-        degreeCelcuis.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 34));
-        degreeCelcuis.setBounds(185,85,150,100);
+    public void addDegreeCelcuis(){
+        degreeCelcuis = new JLabel("10°");
+        degreeCelcuis.setFont(new Font("Fira Code", Font.BOLD, 85));
+        degreeCelcuis.setBounds(125,170,250,100);
+        degreeCelcuis.setHorizontalAlignment(JLabel.CENTER);
         degreeCelcuis.setForeground(Color.BLACK);
-        degreeCelcuis.setHorizontalAlignment(SwingConstants.CENTER);
+        //degreeCelcuis.setHorizontalAlignment(SwingConstants.CENTER);
         add(degreeCelcuis);
+    }
 
-        JLabel weatherConditions = new JLabel("Cloudy");
-        weatherConditions.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 34));
-        weatherConditions.setBounds(175,150,150,100);
-        weatherConditions.setForeground(Color.BLACK);
-        weatherConditions.setHorizontalAlignment(SwingConstants.CENTER);
-        add(weatherConditions);
+    // public void addWeatherCondition(){
+    //     weatherConditions = new JLabel("Cloudy");
+    //     weatherConditions.setFont(new Font("Fira Code", Font.PLAIN, 34));
+    //     weatherConditions.setBounds(25,420,150,100);
+    //     weatherConditions.setForeground(Color.BLACK);
+    //     weatherConditions.setHorizontalAlignment(SwingConstants.CENTER);
+    //     add(weatherConditions);
+    // }
 
-        JLabel humidityText = new JLabel("Humidity: 100%");
-        humidityText.setBounds(15, 550, 125, 85);
-        humidityText.setFont(new Font("TImes New Roman", Font.ROMAN_BASELINE, 14));
-        humidityText.setForeground(Color.BLACK);
-        add(humidityText);
 
-        JLabel windspeedText = new JLabel("Windspeed: 100km/h");
-        windspeedText.setBounds(350, 550, 150, 85);
-        windspeedText.setFont(new Font("TImes New Roman", Font.ROMAN_BASELINE, 14));
-        windspeedText.setForeground(Color.BLACK);
-        add(windspeedText);
-
-        JLabel timeAtLocation = new JLabel("No time");
-        timeAtLocation.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 34));
-        timeAtLocation.setBounds(0,300,500,36);
+    public void addTimeAtLocation(){
+        timeAtLocation = new JLabel("No time");
+        timeAtLocation.setFont(new Font("Fira Code", Font.PLAIN, 20));
+        timeAtLocation.setBounds(140,80,200,30);
+        timeAtLocation.setHorizontalAlignment(JLabel.CENTER);
         timeAtLocation.setForeground(Color.BLACK);
-        timeAtLocation.setHorizontalAlignment(SwingConstants.CENTER);
+        //timeAtLocation.setHorizontalAlignment(SwingConstants.CENTER);
         add(timeAtLocation);
+    }
 
-        JButton searchButton = new JButton(displayIcon("Pictures\\Search.png"));
-
+    public void addSearchButton(){
+        searchButton = new JButton(displayIcon("Pictures\\Search.png"));
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         searchButton.setBounds(425, 15, 45, 45);
         searchButton.setBorderPainted(false); 
@@ -147,16 +161,13 @@ public class WeatherAppGui extends JFrame{
 
                 // update temperature text
                 double temperature = (double) weatherData.get("temperature");
-                degreeCelcuis.setText(temperature + " °C");
-
-                // update weather condition text
-                weatherConditions.setText(weatherCondition);
+                degreeCelcuis.setText(temperature + "°");
 
                 //update timezone
                 String location = (String) weatherData.get("location");
                 timeAtLocation.setText(WeatherAppFunctionality.getTimeZone(location));
                 cityLocation.setText(location);
-
+                
                 // update humidity text
                 long humidity = (long) weatherData.get("humidity");
                 humidityText.setText("<html><b>Humidity</b> " + humidity + "%</html>");
@@ -170,17 +181,32 @@ public class WeatherAppGui extends JFrame{
     }
     
     public void addHumidityIcon(){
-        JLabel humidityIcon = new JLabel(displayIcon("Pictures\\Humidity.png"));
-        humidityIcon.setBounds(15, 500, 100, 85);
+        humidityIcon = new JLabel(displayIcon("Pictures\\Humidity.png"));
+        humidityIcon.setBounds(250, 275, 100, 85);
         add(humidityIcon);
     }
 
     public void addWindspeedIcon(){
-        JLabel windspeedIcon = new JLabel(displayIcon("Pictures\\Wind.png"));
-        windspeedIcon.setBounds(375, 500, 75, 75);
+        windspeedIcon = new JLabel(displayIcon("Pictures\\Wind.png"));
+        windspeedIcon.setBounds(250, 325, 100, 85);
         add(windspeedIcon);
     }
 
+    public void addHumidityText(){
+        humidityText = new JLabel("Humidity: 100%");
+        humidityText.setBounds(325, 275, 125, 85);
+        humidityText.setFont(new Font("Fira Code", Font.BOLD, 14));
+        humidityText.setForeground(Color.BLACK);
+        add(humidityText);
+    }
+
+    public void addWindspeedText(){
+        windspeedText = new JLabel("Windspeed: 100km/h");
+        windspeedText.setBounds(325, 325, 155, 85);
+        windspeedText.setFont(new Font("Fira Code", Font.BOLD, 14));
+        windspeedText.setForeground(Color.BLACK);
+        add(windspeedText);
+    }
     
     private ImageIcon displayIcon(String path){
         try{
