@@ -2,7 +2,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -83,6 +85,7 @@ public class WeatherAppFunctionality {
 
             // build the weather json data object that we are going to access in our frontend
             JSONObject weatherData = new JSONObject();
+            weatherData.put("location", locationName);
             weatherData.put("temperature", temperature);
             weatherData.put("weather_condition", weatherCondition);
             weatherData.put("humidity", humidity);
@@ -94,6 +97,43 @@ public class WeatherAppFunctionality {
         }
 
         return null;
+    }
+
+    public static String getTimeZone(String city){
+
+        JSONArray locationData = getLocationData(city);
+
+        // extract latitude and longitude data
+        JSONObject location = (JSONObject) locationData.get(0);
+        double latitude = (double) location.get("latitude");
+        double longitude = (double) location.get("longitude");
+        try {
+            URL url = new URL("http://api.timezonedb.com/v2.1/get-time-zone?key=Z5KTANBV2G3X&format=json&by=position&lat="+latitude+"&lng="+longitude);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            StringBuilder response = new StringBuilder();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+
+            // Parse the JSON response
+            String jsonResponse = response.toString();
+            String timestamp = jsonResponse.split("\"formatted\": \"")[1].split("\"}")[0];
+            
+            // Convert the timestamp to LocalDateTime
+            //LocalDateTime cityDateTime = LocalDateTime.parse(timestamp, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+            // Print the current date and time of the given city
+            return timestamp;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // retrieves geographic coordinates for given location name
