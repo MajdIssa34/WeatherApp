@@ -24,20 +24,11 @@ public class WeatherAppGui extends JFrame{
     JButton searchButton;
     JLabel windspeedIcon;
     JLabel humidityIcon;
-
+    int hourAtLocation;
 
     public WeatherAppGui(){
         super("Majd's Weather App");
-        Image img = Toolkit.getDefaultToolkit().getImage("Pictures\\NightBackground.png");
-        this.setContentPane(new JPanel() {
-            @Override
-            public void paintComponent(Graphics g) {
-               super.paintComponent(g);
-               g.drawImage(img, -10, -10, null);
-            }
-        });
-        pack();
-
+        paintBackground("Pictures\\Bakcground.png");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setSize(500, 500);
@@ -49,13 +40,26 @@ public class WeatherAppGui extends JFrame{
         
         addGUIComponents();
     }
-
+    //add a background
+    public void paintBackground(String path){
+        Image img = Toolkit.getDefaultToolkit().getImage(path);
+        this.setContentPane(new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+               super.paintComponent(g);
+               g.drawImage(img, -10, -10, null);
+            }
+        });
+        pack();
+        this.revalidate();
+        this.repaint();
+    }
+    //method to add all components at one time
     public void addGUIComponents(){    
         addSearchText();
         addWeatherIcon();
         addCityLocation();
         addDegreeCelcuis();
-        //addWeatherCondition();
         addHumidityIcon();
         addHumidityText();
         addWindspeedText();
@@ -84,7 +88,6 @@ public class WeatherAppGui extends JFrame{
         cityLocation.setBounds(0,125,500,36);
         cityLocation.setHorizontalAlignment(JLabel.CENTER);
         cityLocation.setForeground(Color.BLACK);
-        //cityLocation.setHorizontalAlignment(SwingConstants.CENTER);
         add(cityLocation);
     }
 
@@ -94,19 +97,8 @@ public class WeatherAppGui extends JFrame{
         degreeCelcuis.setBounds(125,170,250,100);
         degreeCelcuis.setHorizontalAlignment(JLabel.CENTER);
         degreeCelcuis.setForeground(Color.BLACK);
-        //degreeCelcuis.setHorizontalAlignment(SwingConstants.CENTER);
         add(degreeCelcuis);
     }
-
-    // public void addWeatherCondition(){
-    //     weatherConditions = new JLabel("Cloudy");
-    //     weatherConditions.setFont(new Font("Fira Code", Font.PLAIN, 34));
-    //     weatherConditions.setBounds(25,420,150,100);
-    //     weatherConditions.setForeground(Color.BLACK);
-    //     weatherConditions.setHorizontalAlignment(SwingConstants.CENTER);
-    //     add(weatherConditions);
-    // }
-
 
     public void addTimeAtLocation(){
         timeAtLocation = new JLabel("No time");
@@ -114,7 +106,6 @@ public class WeatherAppGui extends JFrame{
         timeAtLocation.setBounds(140,80,200,30);
         timeAtLocation.setHorizontalAlignment(JLabel.CENTER);
         timeAtLocation.setForeground(Color.BLACK);
-        //timeAtLocation.setHorizontalAlignment(SwingConstants.CENTER);
         add(timeAtLocation);
     }
 
@@ -167,7 +158,7 @@ public class WeatherAppGui extends JFrame{
                 String location = (String) weatherData.get("location");
                 timeAtLocation.setText(WeatherAppFunctionality.getTimeZone(location));
                 cityLocation.setText(location);
-                
+
                 // update humidity text
                 long humidity = (long) weatherData.get("humidity");
                 humidityText.setText("<html><b>Humidity</b> " + humidity + "%</html>");
